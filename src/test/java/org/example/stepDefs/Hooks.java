@@ -22,8 +22,7 @@ import java.time.Duration;
 public class Hooks {
 
     public static WebDriver driver;
-    public static ExtentReports report;
-    public static ExtentTest reportTest;
+
 
 
 
@@ -44,15 +43,17 @@ public class Hooks {
     public static void shutDown(Scenario scenario) throws InterruptedException {
         if (scenario.isFailed()) {
 
-            reportTest.log(Status.FAIL,"Test Failed: " + scenario.getName());
+            ExtentManager.getTest().fail("Test Failed");
 
         } else {
-            reportTest.log(Status.PASS,"Test passed: " + scenario.getName());
+            ExtentManager.getTest().pass("Test Failed");
 
         }
         Thread.sleep(5000);
 
         driver.quit();
+        ExtentManager.tearDown();
+
     }
 
 

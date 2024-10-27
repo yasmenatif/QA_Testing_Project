@@ -37,6 +37,7 @@ public class userShoppingTest {
         home.initialPage.click();
         home.closeCookiesSettings.click();
 
+        ExtentManager.getTest().info("Went to home page");
 
 
 
@@ -59,23 +60,14 @@ public class userShoppingTest {
 
         logIn.goToYourAccount.click();
 
+        ExtentManager.getTest().info("Signed in successfully");
 
 
     }
 
-//    @When("I scroll down to see the items")
-//    public void iScrollDownToSeeTheItems() throws InterruptedException {
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript("window.scrollBy(0, 1444);");
-////        js.executeScript("window.scrollTo(0, document.body.scrollHeight / 2);");
-//
-//
-//    }
 
     @When("I select and add items to the cart")
     public void iSelectAndAddItemsToTheCart() throws InterruptedException {
-
-
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(home.selectFirstItem));
@@ -100,11 +92,15 @@ public class userShoppingTest {
         home.searchBarTVChoice.click();
         wait.until(ExpectedConditions.elementToBeClickable(home.selectThirdItem));
 
+        Thread.sleep(2000);
         home.selectThirdItem.click();
 
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//img[@class=\"alert-icon\"]")));
 
         prodDetails.addToCart.click();
+        driver.navigate().refresh();
+
+        ExtentManager.getTest().info("Added three items to cart");
 
 
 
@@ -126,7 +122,7 @@ public class userShoppingTest {
 
         softAssert.assertAll();
 
-
+        ExtentManager.getTest().info("Verified items in cart");
 
     }
 
